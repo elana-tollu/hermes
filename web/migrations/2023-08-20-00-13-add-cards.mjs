@@ -6,7 +6,7 @@ export async function transaction(sql){
             cards_id BIGSERIAL PRIMARY KEY,
             cards_native TEXT NOT NULL,
             cards_foreign TEXT NOT NULL,
-            cards_created_at TIMESTAMPTZ
+            cards_created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
     `
 }
