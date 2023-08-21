@@ -1,42 +1,29 @@
 'use client'
 
-import { FormEvent, useState } from "react"
-
-interface NewCard {
-    foreign: string
-    native: string
-}
+import { Card } from "@/lib/card";
+import { useState, useEffect } from "react";
+import { CardList } from "./CardList";
+import { NewCardForm } from "./NewCardForm";
 
 export default function Page() {
-    const [newCard, setNewCard] = useState<NewCard>({ foreign: '', native: '' })
+    const [cards, setCards] = useState<Card[]>([]);
+    useEffect ( () => {
+        loadCards();
+    }, []);
 
-    const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        await fetch('/api/author/cards', {
-            method: "POST", 
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newCard),
-        });
+    const loadCards = async () => {
+        const response = await fetch('/api/author/cards');
+        const json = await response.json();
+        setCards(json);
     }
 
     return (
         <div>
             <h1>Hello, Home Author!</h1>
 
-            <form className="flex flex-col"
-                onSubmit={onSubmit}>
-                <label>
-                    <input value={newCard.foreign} onChange={event => setNewCard(current => ({ ...current, foreign: event.target.value }))}></input>
-                </label>
+            <NewCardForm onNewCard={loadCards}/>
 
-                <label>
-                    <input value={newCard.native} onChange={event => setNewCard(current => ({ ...current, native: event.target.value }))}></input>
-                </label>
-
-                <button>Add</button>
-            </form>
+            <CardList cards={cards} />
         </div>
     )
 }

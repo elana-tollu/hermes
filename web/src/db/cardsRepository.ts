@@ -1,15 +1,10 @@
+import { Row } from "postgres"
 import sql from "./db"
+import { Card } from "@/lib/card"
 
 export interface NewCard {
     native: string
     foreign: string
-}
-
-export interface Card {
-    id: string
-    native: string
-    foreign: string
-    createdAt: Date
 }
 
 export async function addCard(newCard: NewCard): Promise<Card> {
@@ -24,13 +19,24 @@ export async function addCard(newCard: NewCard): Promise<Card> {
         returning *
     `
 
-    const card = result[0];
+    return mapToCard(result[0]);
+}
 
+export async function listAllCards() {
+    const result = await sql`
+        select * 
+        from cards 
+        order by cards_created_at desc
+    `
+    
+    return result.map(mapToCard)
+}
+
+function mapToCard(row: Row): Card {
     return {
-        id: card['cards_id'],
-        native: card['cards_native'],
-        foreign: card['cards_foreign'],
-        createdAt: card['cards_created_at']
+        id: row['cards_id'],
+        native: row['cards_native'],
+        foreign: row['cards_foreign'],
+        createdAt: row['cards_created_at']
     }
-
 }

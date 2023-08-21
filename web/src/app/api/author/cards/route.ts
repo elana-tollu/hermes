@@ -1,10 +1,5 @@
-import { addCard } from '@/db/cardsRepository';
+import { addCard, listAllCards } from '@/db/cardsRepository';
 import { NextRequest, NextResponse } from 'next/server'
-
-export async function GET(request: Request) {
-
-    return NextResponse.json({ now: new Date().toISOString() })
-}
 
 export async function POST(request: NextRequest) {
     const newCard = await request.json();
@@ -15,4 +10,10 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(card);
+}
+
+export async function GET() {
+    const cards = await listAllCards();
+    
+    return NextResponse.json(cards);
 }
