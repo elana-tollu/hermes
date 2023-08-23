@@ -4,17 +4,17 @@ import { Card } from "@/lib/card";
 import { useState, useEffect } from "react";
 import { CardList } from "./CardList";
 import { NewCardForm } from "./NewCardForm";
+import { apiGateway } from "@/lib/apiClient";
 
 export default function Page() {
     const [cards, setCards] = useState<Card[]>([]);
-    useEffect ( () => {
+    useEffect (() => {
         loadCards();
     }, []);
 
     const loadCards = async () => {
-        const response = await fetch('/api/author/cards');
-        const json = await response.json();
-        setCards(json);
+        const allCards = await apiGateway.listAllCards();
+        setCards(allCards);
     }
 
     return (

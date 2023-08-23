@@ -1,5 +1,6 @@
 'use client'
 
+import { apiGateway } from "@/lib/apiClient";
 import { NewCard } from "@/lib/newCard";
 import { FormEvent, useState } from "react"
 
@@ -12,13 +13,7 @@ export function NewCardForm({onNewCard}: Props) {
 
     const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        await fetch('/api/author/cards', {
-            method: "POST", 
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newCard),
-        });
+        await apiGateway.addNewCard(newCard);
         onNewCard();
     }
 
