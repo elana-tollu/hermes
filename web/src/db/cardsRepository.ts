@@ -1,6 +1,7 @@
 import { Row } from "postgres"
 import sql from "./db"
 import { Card } from "@/lib/card"
+import { NotFoundError } from "./errors"
 
 export interface NewCard {
     native: string
@@ -30,6 +31,19 @@ export async function listAllCards() {
     `
     
     return result.map(mapToCard)
+}
+
+export async function getCardById(cardId: string) {
+    const result = await sql`
+        select * 
+        from cards 
+        where cards_id = ${cardId}
+    `
+    if (result.length === 0) {
+        throw new NotFoundError('Card', cardId); 
+    }
+    
+    return mapToCard(result[0]);
 }
 
 function mapToCard(row: Row): Card {

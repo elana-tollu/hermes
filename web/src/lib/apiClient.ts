@@ -1,9 +1,11 @@
+import { getCardById } from "@/db/cardsRepository";
 import { Card } from "./card";
 import { NewCard } from "./newCard";
 
 export interface ApiGateway {
     addNewCard: (newCard: NewCard) => Promise<void>
     listAllCards: () => Promise<Card[]>
+    getCardById: (cardId: string) => Promise<Card> 
 }
 
 class HttpApiGateway implements ApiGateway {
@@ -19,6 +21,12 @@ class HttpApiGateway implements ApiGateway {
 
     async listAllCards(): Promise<Card[]> {
         const response = await fetch('/api/author/cards');
+        const json = await response.json();
+        return json;
+    }
+
+    async getCardById(cardId: string): Promise<Card> {
+        const response = await fetch(`/api/author/cards/${cardId}`);
         const json = await response.json();
         return json;
     }
