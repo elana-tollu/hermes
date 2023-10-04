@@ -24,7 +24,7 @@ export function Card({cardId}: Props) {
     }
     
     return (
-        <div>
+        <div className = 'w-64'>
             {card.foreign}
         </div>
     );

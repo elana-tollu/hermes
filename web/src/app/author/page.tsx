@@ -18,8 +18,8 @@ export default function Page() {
     }
 
     return (
-        <div>
-            <h1>Hello, Home Author!</h1>
+        <div className = "bg-amberl">
+            <h1 className = 'text-orangemd m-10'>Hello, Author!</h1>
 
             <NewCardForm onNewCard={loadCards}/>
 
