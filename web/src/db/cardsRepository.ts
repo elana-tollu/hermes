@@ -1,6 +1,6 @@
 import { Row } from "postgres"
 import sql from "./db"
-import { Card } from "@/lib/card"
+import { CardOld } from "@/lib/cardOld"
 import { NotFoundError } from "./errors"
 
 export interface NewCard {
@@ -8,7 +8,7 @@ export interface NewCard {
     foreign: string
 }
 
-export async function addCard(newCard: NewCard): Promise<Card> {
+export async function addCard(newCard: NewCard): Promise<CardOld> {
     const result = await sql`
         insert into cards (
             cards_native, 
@@ -46,7 +46,7 @@ export async function getCardById(cardId: string) {
     return mapToCard(result[0]);
 }
 
-function mapToCard(row: Row): Card {
+function mapToCard(row: Row): CardOld {
     return {
         id: row['cards_id'],
         native: row['cards_native'],

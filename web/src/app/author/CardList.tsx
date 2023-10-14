@@ -1,9 +1,9 @@
 'use client'
 
-import { Card } from "@/lib/card"
+import { CardOld } from "@/lib/cardOld"
 
 interface Props {
-    cards: Card[]
+    cards: CardOld[]
 }
 
 export function CardList({cards}: Props) {

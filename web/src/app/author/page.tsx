@@ -1,13 +1,13 @@
 'use client'
 
-import { Card } from "@/lib/card";
+import { CardOld } from "@/lib/cardOld";
 import { useState, useEffect } from "react";
 import { CardList } from "./CardList";
 import { NewCardForm } from "./NewCardForm";
 import { apiGateway } from "@/lib/apiClient";
 
 export default function Page() {
-    const [cards, setCards] = useState<Card[]>([]);
+    const [cards, setCards] = useState<CardOld[]>([]);
     useEffect (() => {
         loadCards();
     }, []);

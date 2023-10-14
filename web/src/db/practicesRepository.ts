@@ -1,6 +1,6 @@
 import { Row } from "postgres"
 import sql from "./db"
-import { Card } from "@/lib/card"
+import { CardOld } from "@/lib/cardOld"
 import { NotFoundError } from "./errors"
 
 interface CardAndCaseId {
@@ -37,7 +37,7 @@ export async function getCardById(cardId: string) {
     return mapToCard(result[0]);
 }
 
-function mapToCard(row: Row): Card {
+function mapToCard(row: Row): CardOld {
     return {
         id: row['cards_id'],
         native: row['cards_native'],

@@ -1,6 +1,18 @@
 export interface Card {
     id: string
-    native: string
-    foreign: string
-    createdAt: Date
+    blockId: string
+    task: string
+    sideA: string[]
+    sideB: string[]
+}
+
+export interface Block {
+    id: string
+    samples: Sample[]
+}
+
+export interface Sample {
+    index: string
+    type: 'text'
+    text: string
 }

@@ -1,12 +1,12 @@
 import { getCardById } from "@/db/cardsRepository";
-import { Card } from "./card";
+import { CardOld } from "./cardOld";
 import { NewCard } from "./newCard";
 import { Practice } from "./practice/practice";
 
 export interface ApiGateway {
     addNewCard: (newCard: NewCard) => Promise<void>
-    listAllCards: () => Promise<Card[]>
-    getCardById: (cardId: string) => Promise<Card> 
+    listAllCards: () => Promise<CardOld[]>
+    getCardById: (cardId: string) => Promise<CardOld> 
 }
 
 class HttpApiGateway implements ApiGateway {
@@ -20,14 +20,14 @@ class HttpApiGateway implements ApiGateway {
         });
     }
 
-    async listAllCards(): Promise<Card[]> {
+    async listAllCards(): Promise<CardOld[]> {
         const response = await fetch('/api/author/cards');
         const json = await response.json();
-        
+
         return json;
     }
 
-    async getCardById(cardId: string): Promise<Card> {
+    async getCardById(cardId: string): Promise<CardOld> {
         const response = await fetch(`/api/author/cards/${cardId}`);
         const json = await response.json();
 

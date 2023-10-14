@@ -1,15 +1,15 @@
 'use client'
 
 import { apiGateway } from "@/lib/apiClient";
-import { Card } from "@/lib/card"
+import { CardOld } from "@/lib/cardOld"
 import { useState, useEffect } from "react";
 
 interface Props {
     cardId: string
 }
 
-export function Card({cardId}: Props) {
-    const [card, setCard] = useState<Card>();
+export function CardOld({cardId}: Props) {
+    const [card, setCard] = useState<CardOld>();
     useEffect (() => {
         loadCard();
     }, []);

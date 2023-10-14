@@ -1,7 +1,7 @@
 'use client'
 
 import { apiGateway } from "@/lib/apiClient"
-import { Card } from "./Card"
+import { CardOld } from "./CardOld"
 import { useState } from "react"
 import { Practice } from "@/lib/practice/practice"
 
@@ -17,15 +17,14 @@ export default function Page() {
       <div>
         <h1>Hello, Home page!</h1>
 
-        <Card cardId={"9"} ></Card>
-
+        
         <button
           onClick={generatePractice}
         >
           Start
         </button>
 
-        {practice && practice.cardIds.map(cardId => <Card cardId={cardId} />)}
+        
       </div>
     )
   }
