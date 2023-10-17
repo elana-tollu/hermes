@@ -1,7 +1,7 @@
 'use client'
 
 import { apiGateway } from "@/lib/apiClient"
-import { Card } from "./practice/Card"
+import { CardComponent } from "./practice/CardComponent"
 import { useState } from "react"
 import { Practice } from "@/lib/practice/practice"
 

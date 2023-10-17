@@ -1,10 +1,9 @@
-import { Card } from "./Card";
-import { Practice } from "./Practice";
+import { PracticeComponent } from "./PracticeComponent";
 
-export default function Page({ params }: { params: { cardId: string } }) {
+export default function Page() {
     return (
         <div>
-            <Practice/>
+            <PracticeComponent/>
         </div>
     )
   }
