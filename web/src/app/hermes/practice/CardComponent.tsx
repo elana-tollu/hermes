@@ -37,18 +37,16 @@ interface ViewModel {
 
 export const useCardPresenter = () => {
     const { card, loadCard } = useCardRepository();
-    const { applicationModel } = usePracticeRepository();
-
-    const cardId = applicationModel.currentCardId;
+    const { currentCardId } = usePracticeRepository();
 
     const [showSideB, setShowSideB] = useState<boolean>(false)
 
     useEffect( () => {
-        if (!cardId) {
+        if (!currentCardId) {
             return
         }
-        loadCard(cardId);
-    }, [cardId])
+        loadCard(currentCardId);
+    }, [currentCardId])
     
     const reveal = () => {
         setShowSideB(true);  
@@ -88,18 +86,20 @@ export const CardComponent: React.FC = () => {
         }
 
     return (
-        <div className='w-64'>
-            <h2>{viewModel.card.task}</h2>
+        <div className='flex flex-col w-80 rounded-3xl border-2 border-gray-300 p-5 gap-5 text-center'>
+            <h2 className='text-xl text-gray-500'>{viewModel.card.task}</h2>
 
-            <div>{viewModel.card.sideAText}</div>
+            <div className='text-lg text-gray-800'>{viewModel.card.sideAText}</div>
 
             {viewModel.showSideB && (
                 <div>{viewModel.card.sideBText}</div>
             )}
 
-            <button onClick={reveal} disabled={viewModel.showSideB}>Reveal</button>
+            <div className='flex flex-row justify-between'>
+                <button className='w-20 rounded-md border-2 border-gray-300 p-3 text-gray-500' onClick={reveal} disabled={viewModel.showSideB}>Reveal</button>
 
-            <button onClick={next}>Next</button>
+                <button className='w-20 rounded-md border-2 border-gray-300 p-3 text-gray-500' onClick={next}>Next</button>
+            </div>
         </div>
     );
 }

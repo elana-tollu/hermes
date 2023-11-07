@@ -2,8 +2,9 @@
 
 import { Practice } from "@/lib/practice/practice";
 import { generatePractice } from "@/lib/practice/practiceService";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CardComponent } from "./CardComponent";
+import { PracticeContext } from "./practiceContext";
 
 interface ApplicationModel {
     practice?: Practice
@@ -11,13 +12,19 @@ interface ApplicationModel {
 }
 
 export const usePracticeRepository = () => {
-    const [applicationModel, setApplicationModel] = useState<ApplicationModel>({});
+    const {
+        currentCardId, 
+        setCurrentCardId, 
+        practice, 
+        setPractice
+    } = useContext(PracticeContext);
     
-    const generate =async () => {
+    const generate = async () => {
         const practice = await generatePractice({});
         console.log('practice', practice)
         const currentCardId = practice.cardIds[0];
-        setApplicationModel({ currentCardId, practice });
+        setCurrentCardId(currentCardId);
+        setPractice(practice);
     }
 
     const nextCard = () => {
@@ -25,21 +32,22 @@ export const usePracticeRepository = () => {
     }
 
     return {
-        applicationModel,
+        currentCardId,
+        practice,
         generate,
         nextCard
     }
 }
 
 export const usePracticePresenter = () => {
-    const { applicationModel, generate } = usePracticeRepository();
+    const { practice, generate } = usePracticeRepository();
 
     useEffect( () => {
         generate();
     }, [])
 
     const viewModel = {
-        isLoading: !applicationModel.practice
+        isLoading: !practice
     }
 
     return {
@@ -57,7 +65,7 @@ export const PracticeComponent: React.FC = () => {
     }
 
     return (
-        <div className='w-64'>
+        <div className='w-80'>
             <CardComponent />
         </div>
     );

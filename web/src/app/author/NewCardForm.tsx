@@ -18,7 +18,7 @@ export function NewCardForm({onNewCard}: Props) {
     }
 
     return (
-            <form className="flex flex-col"
+            <form className="flex flex-col border-7"
                 onSubmit={onSubmit}>
                 <label>
                     <input value={newCard.foreign} onChange={event => setNewCard(current => ({ ...current, foreign: event.target.value }))}></input>

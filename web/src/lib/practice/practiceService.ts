@@ -8,6 +8,19 @@ export async function generatePractice(newPractice: NewPractice): Promise<Practi
     return {cardIds}
 }
 
+export async function getCard(cardId: string): Promise<Card> {
+    const card = cards.find(card => card.id === cardId)!;
+    const block = blocks.find(block => block.id === card.blockId)!;
+
+    return {
+        id: card.id,
+        blockId: card.blockId,
+        task: card.task,
+        sideA: card.sideA.map( sampleIndex => block.samples.find(sample => sample.index === sampleIndex)!.text),
+        sideB: card.sideB.map( sampleIndex => block.samples.find(sample => sample.index === sampleIndex)!.text),
+    }
+}
+
 
 const cards: Card[] = [
     {
@@ -47,82 +60,84 @@ const cards: Card[] = [
     }
 ]
 
-const bl1: Block = {
-    id: 'BL1',
-    samples: [
-        {
-            index: 'A',
-            type: 'text',
-            text: 'suvila, suvila, suvilat'
-        },
-        {
-            index: 'B',
-            type: 'text',
-            text: 'дача'
-        }
-    ]
-}
+const blocks: Block[] = [
+    {
+        id: 'BL1',
+        samples: [
+            {
+                index: 'A',
+                type: 'text',
+                text: 'suvila, suvila, suvilat'
+            },
+            {
+                index: 'B',
+                type: 'text',
+                text: 'дача'
+            }
+        ]
+    },
 
-const bl2: Block = {
-    id: 'BL2',
-    samples: [
-        {
-            index: 'A',
-            type: 'text',
-            text: 'paarismaja, paarismaja, paarismaja'
-        },
-        {
-            index: 'B',
-            type: 'text',
-            text: 'таунхаус'
-        }
-    ]
-}
+    {
+        id: 'BL2',
+        samples: [
+            {
+                index: 'A',
+                type: 'text',
+                text: 'paarismaja, paarismaja, paarismaja'
+            },
+            {
+                index: 'B',
+                type: 'text',
+                text: 'таунхаус'
+            }
+        ]
+    },
 
-const bl3: Block = {
-    id: 'BL3',
-    samples: [
-        {
-            index: 'A',
-            type: 'text',
-            text: 'eramaja, eramaja, eramaja'
-        },
-        {
-            index: 'B',
-            type: 'text',
-            text: 'частный дом'
-        }
-    ]
-}
+    {
+        id: 'BL3',
+        samples: [
+            {
+                index: 'A',
+                type: 'text',
+                text: 'eramaja, eramaja, eramaja'
+            },
+            {
+                index: 'B',
+                type: 'text',
+                text: 'частный дом'
+            }
+        ]
+    },
 
-const bl4: Block = {
-    id: 'BL4',
-    samples: [
-        {
-            index: 'A',
-            type: 'text',
-            text: 'puumaja, puumaja, puumaja'
-        },
-        {
-            index: 'B',
-            type: 'text',
-            text: 'деревянный дом'
-        }
-    ]
-}
+    {
+        id: 'BL4',
+        samples: [
+            {
+                index: 'A',
+                type: 'text',
+                text: 'puumaja, puumaja, puumaja'
+            },
+            {
+                index: 'B',
+                type: 'text',
+                text: 'деревянный дом'
+            }
+        ]
+    },
 
-const bl5: Block = {
-    id: 'BL5',
-    samples: [
-        {
-            index: 'A',
-            type: 'text',
-            text: 'kivimaja, kivimaja, kivimaja'
-        },
-        {
-            index: 'B',
-            type: 'text',
-            text: 'каменный дом'
-        }
-    ]
-}
+    {
+        id: 'BL5',
+        samples: [
+            {
+                index: 'A',
+                type: 'text',
+                text: 'kivimaja, kivimaja, kivimaja'
+            },
+            {
+                index: 'B',
+                type: 'text',
+                text: 'каменный дом'
+            }
+        ]
+    }
+]
