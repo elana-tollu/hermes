@@ -2,6 +2,7 @@ import { Footer } from './Footer'
 import { Header } from './Header'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { HermesContextProvider } from './hermes/HermesContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,17 +16,21 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <html lang="en">
-      <body className="h-screen flex flex-col justify-center relative bg-orangel" >
-        <Header /> 
-        
-        <main className="flex flex-col items-center justify-center p-24 bg-orangel">
-          {children}         
-        </main>
 
-        <Footer />     
-      </body>
-    </html>
+  return (
+    <HermesContextProvider>
+      <html lang="en">
+        <body className="h-screen flex flex-col justify-center relative bg-orangel" >
+          <Header />
+
+          <main className="flex flex-col items-center justify-center p-24 bg-orangel">
+            {children}
+          </main>
+
+          <Footer />
+        </body>
+      </html>
+    </HermesContextProvider>
   )
 }
+

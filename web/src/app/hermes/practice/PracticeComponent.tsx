@@ -1,13 +1,13 @@
 'use client'
 
-import { Practice } from "@/lib/practice/practice";
+import { PracticeOld } from "@/lib/practice/practiceOld";
 import { generatePractice } from "@/lib/practice/practiceService";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { CardComponent } from "./CardComponent";
-import { PracticeContext } from "./practiceContext";
+import { PracticeContext } from "./PracticeContext";
 
 interface ApplicationModel {
-    practice?: Practice
+    practice?: PracticeOld
     currentCardId?:  string
 }
 

@@ -1,11 +1,12 @@
 import { Block, Card } from "../card";
 import { NewPractice } from "./newPractice";
-import { Practice } from "./practice";
+import { PracticeOld } from "./practiceOld";
 
-export async function generatePractice(newPractice: NewPractice): Promise<Practice> {
+export async function generatePractice(newPractice: NewPractice): Promise<PracticeOld> {
     const cardIds = cards.map(card => card.id)
+    const practiceId = '123ABC';
 
-    return {cardIds}
+    return {practiceId, cardIds}
 }
 
 export async function getCard(cardId: string): Promise<Card> {

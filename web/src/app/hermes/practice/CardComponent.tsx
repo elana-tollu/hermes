@@ -2,12 +2,12 @@
 
 import { apiGateway } from "@/lib/apiClient"
 import { Card } from "@/lib/card"
-import { Practice } from "@/lib/practice/practice"
+import { PracticeOld } from "@/lib/practice/practiceOld"
 import { useEffect, useState } from "react"
 import { usePracticeRepository } from "./PracticeComponent"
 
 interface ApplicationModel {
-    practice: Practice
+    practice: PracticeOld
     currentCard: Card | null
 }
 

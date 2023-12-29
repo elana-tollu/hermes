@@ -1,7 +1,7 @@
 import { getCardById } from "@/db/cardsRepository";
 import { CardOld } from "./cardOld";
 import { NewCard } from "./newCard";
-import { Practice } from "./practice/practice";
+import { PracticeOld } from "./practice/practiceOld";
 import { Card } from "./card";
 
 export interface ApiGateway {
@@ -35,7 +35,7 @@ class HttpApiGateway implements ApiGateway {
         return json;
     }
 
-    async generatePractice(): Promise<Practice> {
+    async generatePractice(): Promise<PracticeOld> {
         const response = await fetch('/api/practices', {
             method: "POST", 
             headers: {
