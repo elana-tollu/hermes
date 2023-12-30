@@ -1,7 +1,7 @@
 'use client'
 
 import { PracticeOld } from "@/lib/practice/practiceOld";
-import { generatePractice } from "@/lib/practice/practiceService";
+import { generatePracticeOld } from "@/lib/practice/practiceService";
 import { useContext, useEffect } from "react";
 import { CardComponent } from "./CardComponent";
 import { PracticeContext } from "./PracticeContext";
@@ -20,7 +20,7 @@ export const usePracticeRepository = () => {
     } = useContext(PracticeContext);
     
     const generate = async () => {
-        const practice = await generatePractice({});
+        const practice = await generatePracticeOld({});
         console.log('practice', practice)
         const currentCardId = practice.cardIds[0];
         setCurrentCardId(currentCardId);

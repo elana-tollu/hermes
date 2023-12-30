@@ -3,7 +3,7 @@ import { useCardRepository } from "./useCardRepository"
 import { usePracticeRepository } from "../../usePracticeRepository"
 
 export const useCardPresenter = () => {
-    const { practice } = usePracticeRepository();
+    const { practice, nextCard } = usePracticeRepository();
     const { card, loadCard } = useCardRepository();
     const [showSideB, setShowSideB] = useState<boolean>(false)
     useEffect( () => {
@@ -30,7 +30,7 @@ export const useCardPresenter = () => {
     }
 
     const next = () => {
-        console.log('next');
+        nextCard();
     }
 
     return {

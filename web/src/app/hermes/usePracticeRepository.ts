@@ -6,7 +6,7 @@ import { Practice } from "@/lib/practice/practise";
 const practiceAtom = atom<Practice | null>(null);
 
 export function usePracticeRepository() {
-    const {generatePractice, getPractice} = useContext(HermesContext);
+    const {generatePractice, getPractice, advancePractice} = useContext(HermesContext);
     const [practice, setPractice] = useAtom(practiceAtom);
 
     const loadPractice = async(practiceId: string) => {
@@ -16,5 +16,13 @@ export function usePracticeRepository() {
 
     const resetPractice = () => setPractice(null);
 
-    return {generatePractice, practice, loadPractice, resetPractice};
+    const nextCard = async () => {
+        if (!practice) {
+            throw new Error('Practice expected, but not present!!!')
+        };
+        await advancePractice(practice.practiceId);
+        await loadPractice(practice.practiceId);
+    }
+
+    return {generatePractice, practice, loadPractice, resetPractice, nextCard};
 }

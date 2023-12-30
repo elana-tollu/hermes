@@ -1,12 +1,31 @@
 import { Card } from "../card";
 import { NewPractice } from "./newPractice";
 import { PracticeOld } from "./practiceOld";
+import { Practice } from "./practise";
 
-export async function generatePractice(newPractice: NewPractice): Promise<PracticeOld> {
+export async function generatePracticeOld(newPractice: NewPractice): Promise<PracticeOld> {
     const cardIds = cards.map(card => card.cardId)
     const practiceId = '123ABC';
 
     return { practiceId, cardIds }
+}
+
+export async function generatePractice(newPractice: NewPractice): Promise<Practice> {
+    return {...practice, totalCards: practice.cardIds.length }
+}
+
+export async function practiceById(practiceId: string): Promise<Practice> {
+    return {...practice, totalCards: practice.cardIds.length }
+}
+
+export async function advancePractice(practiceId: string): Promise<void> {
+    const currentCardIndex = practice.cardIds.indexOf(practice.currentCardId);
+    const nextCardId = practice.cardIds[currentCardIndex + 1];
+    if(!nextCardId) {
+        return
+    };
+    practice.currentCardId = nextCardId;
+    practice.currentCardNumber = practice.currentCardNumber + 1;
 }
 
 export async function getCard(cardId: string): Promise<Card> {
@@ -15,6 +34,12 @@ export async function getCard(cardId: string): Promise<Card> {
     return card
 }
 
+const practice = {
+    practiceId: '123ABC',
+    currentCardId: 'CA1',
+    currentCardNumber: 1,
+    cardIds: ['CA1', 'CA2', 'CA3', 'CA4',' CA5']
+}
 
 const cards: Card[] = [
     {

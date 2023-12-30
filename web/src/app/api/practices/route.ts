@@ -1,7 +1,7 @@
 import { addCard, listAllCards } from '@/db/cardsRepository';
 import { NewCardSchema } from '@/lib/newCard';
 import { NewPracticeSchema } from '@/lib/practice/newPractice';
-import { generatePractice } from '@/lib/practice/practiceService';
+import { generatePracticeOld } from '@/lib/practice/practiceService';
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     const newPractice = NewPracticeSchema.parse(json);
 
     // вызвать бизнес-слой и получить от него результат
-    const practice = await generatePractice(newPractice);
+    const practice = await generatePracticeOld(newPractice);
 
     // из полученного результата сформировать HTTP ответ
     return NextResponse.json(practice);

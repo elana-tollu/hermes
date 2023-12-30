@@ -7,6 +7,7 @@ export interface ApiGateway {
     generatePractice: () => Promise<string>
     getPractice: (practiceId: string) => Promise<Practice> 
     getCard: (cardId: string) => Promise<CardResponse>
+    advancePractice: (practiceId: string) => Promise<void>
 }
 
 export class HttpApiGateway implements ApiGateway {
@@ -32,5 +33,15 @@ export class HttpApiGateway implements ApiGateway {
         });
         const responseBody = await response.json() as PracticeOld;
         return responseBody.practiceId;
+    }
+
+    async advancePractice(practiceId: string): Promise<void> {
+        await fetch(`/api/practices/${practiceId}/advance`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({}),
+        });
     }
 }
