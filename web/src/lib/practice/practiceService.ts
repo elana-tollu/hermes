@@ -1,144 +1,70 @@
-import { Block, Card } from "../card";
+import { Card } from "../card";
 import { NewPractice } from "./newPractice";
 import { PracticeOld } from "./practiceOld";
 
 export async function generatePractice(newPractice: NewPractice): Promise<PracticeOld> {
-    const cardIds = cards.map(card => card.id)
+    const cardIds = cards.map(card => card.cardId)
     const practiceId = '123ABC';
 
-    return {practiceId, cardIds}
+    return { practiceId, cardIds }
 }
 
 export async function getCard(cardId: string): Promise<Card> {
-    const card = cards.find(card => card.id === cardId)!;
-    const block = blocks.find(block => block.id === card.blockId)!;
+    const card = cards.find(card => card.cardId === cardId)!;
 
-    return {
-        id: card.id,
-        blockId: card.blockId,
-        task: card.task,
-        sideA: card.sideA.map( sampleIndex => block.samples.find(sample => sample.index === sampleIndex)!.text),
-        sideB: card.sideB.map( sampleIndex => block.samples.find(sample => sample.index === sampleIndex)!.text),
-    }
+    return card
 }
 
 
 const cards: Card[] = [
     {
-        id: 'CA1',
-        blockId: 'BL1',
+        cardId: 'CA1',
         task: 'Translate',
-        sideA: ['A'],
-        sideB: ['B']
+        sideA: {
+            text: 'suvila, suvila, suvilat'
+        },
+        sideB: {
+            text: 'дача'
+        }
     },
     {
-        id: 'CA2',
-        blockId: 'BL2',
+        cardId: 'CA2',
         task: 'Translate',
-        sideA: ['A'],
-        sideB: ['B']
+        sideA: {
+            text: 'paarismaja, paarismaja, paarismaja'
+        },
+        sideB: {
+            text: 'таунхаус'
+        }
     },
     {
-        id: 'CA3',
-        blockId: 'BL3',
+        cardId: 'CA3',
         task: 'Translate',
-        sideA: ['A'],
-        sideB: ['B']
+        sideA: {
+            text: 'eramaja, eramaja, eramaja'
+        },
+        sideB: {
+            text: 'частный дом'
+        }
     },
     {
-        id: 'CA4',
-        blockId: 'BL4',
+        cardId: 'CA4',
         task: 'Translate',
-        sideA: ['A'],
-        sideB: ['B']
+        sideA: {
+            text: 'puumaja, puumaja, puumaja'
+        },
+        sideB: {
+            text: 'деревянный дом'
+        }
     },
     {
-        id: 'CA5',
-        blockId: 'BL5',
+        cardId: 'CA5',
         task: 'Translate',
-        sideA: ['A'],
-        sideB: ['B']
-    }
-]
-
-const blocks: Block[] = [
-    {
-        id: 'BL1',
-        samples: [
-            {
-                index: 'A',
-                type: 'text',
-                text: 'suvila, suvila, suvilat'
-            },
-            {
-                index: 'B',
-                type: 'text',
-                text: 'дача'
-            }
-        ]
-    },
-
-    {
-        id: 'BL2',
-        samples: [
-            {
-                index: 'A',
-                type: 'text',
-                text: 'paarismaja, paarismaja, paarismaja'
-            },
-            {
-                index: 'B',
-                type: 'text',
-                text: 'таунхаус'
-            }
-        ]
-    },
-
-    {
-        id: 'BL3',
-        samples: [
-            {
-                index: 'A',
-                type: 'text',
-                text: 'eramaja, eramaja, eramaja'
-            },
-            {
-                index: 'B',
-                type: 'text',
-                text: 'частный дом'
-            }
-        ]
-    },
-
-    {
-        id: 'BL4',
-        samples: [
-            {
-                index: 'A',
-                type: 'text',
-                text: 'puumaja, puumaja, puumaja'
-            },
-            {
-                index: 'B',
-                type: 'text',
-                text: 'деревянный дом'
-            }
-        ]
-    },
-
-    {
-        id: 'BL5',
-        samples: [
-            {
-                index: 'A',
-                type: 'text',
-                text: 'kivimaja, kivimaja, kivimaja'
-            },
-            {
-                index: 'B',
-                type: 'text',
-                text: 'каменный дом'
-            }
-        ]
+        sideA: {
+            text: 'kivimaja, kivimaja, kivimaja'
+        },
+        sideB: {
+            text: 'каменный дом'
+        }
     }
 ]

@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithChildren, createContext, useMemo } from "react";
-import { ApiGateway, HttpApiGateway } from "./apiGateway";
+import { ApiGateway, HttpApiGateway } from "./apiGateway/apiGateway";
 
 export const HermesContext = createContext<ApiGateway>({} as ApiGateway);
 
