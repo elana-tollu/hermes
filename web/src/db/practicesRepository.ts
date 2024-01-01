@@ -2,6 +2,42 @@ import { Row } from "postgres"
 import sql from "./db"
 import { CardOld } from "@/lib/cardOld"
 import { NotFoundError } from "./errors"
+import { Practice } from "@/lib/practice/practice"
+
+
+
+
+export async function getPracticeById(practiceId: string): Promise<Practice> {
+    const result = await sql`
+        select * 
+        from cards 
+        where cards_id = ${practiceId}
+    `
+    if (result.length === 0) {
+        throw new NotFoundError('Card', practiceId); 
+    }
+    
+    return mapToCard(result[0]);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 interface CardAndCaseId {
     cardId: string

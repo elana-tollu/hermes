@@ -1,11 +1,10 @@
 import { z } from "zod";
 
-export const PracticeSchema = z.object({
+export const PracticeResponseSchema = z.object({
     practiceId: z.string(),
     currentCardId: z.string(),
     currentCardNumber: z.number(),
     totalCards: z.number()
 });
 
-export type Practice = z.infer<typeof PracticeSchema>;
-  
+export type PracticeResponse = z.infer<typeof PracticeResponseSchema>;

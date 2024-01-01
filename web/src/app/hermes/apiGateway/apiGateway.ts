@@ -1,11 +1,10 @@
-import { Card } from "@/lib/card";
 import { PracticeOld } from "@/lib/practice/practiceOld";
-import { Practice, PracticeSchema } from "@/lib/practice/practise";
 import { CardResponse, CardResponseSchema } from "./cardResponse";
+import { PracticeResponse, PracticeResponseSchema } from "./practiceResponse";
 
 export interface ApiGateway {
     generatePractice: () => Promise<string>
-    getPractice: (practiceId: string) => Promise<Practice> 
+    getPractice: (practiceId: string) => Promise<PracticeResponse> 
     getCard: (cardId: string) => Promise<CardResponse>
     advancePractice: (practiceId: string) => Promise<void>
 }
@@ -17,10 +16,10 @@ export class HttpApiGateway implements ApiGateway {
         return CardResponseSchema.parse(responseBody);
     }
 
-    async getPractice(practiceId: string): Promise<Practice> {
+    async getPractice(practiceId: string): Promise<PracticeResponse> {
         const response = await fetch(`/api/practices/${practiceId}`);
         const responseBody = await response.json();
-        return PracticeSchema.parse(responseBody);
+        return PracticeResponseSchema.parse(responseBody);
     }
     
     async generatePractice(): Promise<string> {

@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { HermesContext } from "./HermesContext"
 import { atom, useAtom } from "jotai";
-import { Practice } from "@/lib/practice/practise";
+import { PracticeResponse } from "./apiGateway/practiceResponse";
 
-const practiceAtom = atom<Practice | null>(null);
+const practiceAtom = atom<PracticeResponse | null>(null);
 
 export function usePracticeRepository() {
     const {generatePractice, getPractice, advancePractice} = useContext(HermesContext);

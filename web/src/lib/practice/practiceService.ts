@@ -1,7 +1,7 @@
 import { Card } from "../card";
 import { NewPractice } from "./newPractice";
 import { PracticeOld } from "./practiceOld";
-import { Practice } from "./practise";
+import { Practice } from "./practice";
 
 export async function generatePracticeOld(newPractice: NewPractice): Promise<PracticeOld> {
     const cardIds = cards.map(card => card.cardId)
@@ -11,11 +11,11 @@ export async function generatePracticeOld(newPractice: NewPractice): Promise<Pra
 }
 
 export async function generatePractice(newPractice: NewPractice): Promise<Practice> {
-    return {...practice, totalCards: practice.cardIds.length }
+    return practice
 }
 
 export async function practiceById(practiceId: string): Promise<Practice> {
-    return {...practice, totalCards: practice.cardIds.length }
+    return practice
 }
 
 export async function advancePractice(practiceId: string): Promise<void> {
@@ -25,7 +25,6 @@ export async function advancePractice(practiceId: string): Promise<void> {
         return
     };
     practice.currentCardId = nextCardId;
-    practice.currentCardNumber = practice.currentCardNumber + 1;
 }
 
 export async function getCard(cardId: string): Promise<Card> {
@@ -34,10 +33,9 @@ export async function getCard(cardId: string): Promise<Card> {
     return card
 }
 
-const practice = {
+const practice: Practice = {
     practiceId: '123ABC',
     currentCardId: 'CA1',
-    currentCardNumber: 1,
     cardIds: ['CA1', 'CA2', 'CA3', 'CA4',' CA5']
 }
 
