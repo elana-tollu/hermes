@@ -2,29 +2,41 @@ import { Card } from "../card";
 import { NewPractice } from "./newPractice";
 import { PracticeOld } from "./practiceOld";
 import { Practice } from "./practice";
+import { createPractice, getPracticeById, updateCurrentCardId } from "@/db/practicesRepository";
 
 export async function generatePracticeOld(newPractice: NewPractice): Promise<PracticeOld> {
-    const cardIds = cards.map(card => card.cardId)
+    const cardIds = cards.map(card => card.cardId);
     const practiceId = '123ABC';
 
-    return { practiceId, cardIds }
+    return { practiceId, cardIds };
 }
 
 export async function generatePractice(newPractice: NewPractice): Promise<Practice> {
-    return practice
+    const practiceId = crypto.randomUUID();
+    const practice = {
+        practiceId,
+        currentCardId: cards[0].cardId,
+        cardIds: cards.map(card => card.cardId)
+    };
+    const createdPractice = await createPractice(practice);
+
+    return createdPractice;
 }
 
 export async function practiceById(practiceId: string): Promise<Practice> {
+    const practice = await getPracticeById(practiceId);
+
     return practice
 }
 
 export async function advancePractice(practiceId: string): Promise<void> {
+    const practice = await getPracticeById(practiceId);
     const currentCardIndex = practice.cardIds.indexOf(practice.currentCardId);
     const nextCardId = practice.cardIds[currentCardIndex + 1];
     if(!nextCardId) {
         return
     };
-    practice.currentCardId = nextCardId;
+    await updateCurrentCardId(practiceId, nextCardId);
 }
 
 export async function getCard(cardId: string): Promise<Card> {
@@ -33,15 +45,9 @@ export async function getCard(cardId: string): Promise<Card> {
     return card
 }
 
-const practice: Practice = {
-    practiceId: '123ABC',
-    currentCardId: 'CA1',
-    cardIds: ['CA1', 'CA2', 'CA3', 'CA4',' CA5']
-}
-
 const cards: Card[] = [
     {
-        cardId: 'CA1',
+        cardId: '64ad9c0f-254d-4240-8f28-e49aa2c09758',
         task: 'Translate',
         sideA: {
             text: 'suvila, suvila, suvilat'
@@ -51,7 +57,7 @@ const cards: Card[] = [
         }
     },
     {
-        cardId: 'CA2',
+        cardId: '0c6883ca-4928-4b6b-975b-781f4adaad79',
         task: 'Translate',
         sideA: {
             text: 'paarismaja, paarismaja, paarismaja'
@@ -61,7 +67,7 @@ const cards: Card[] = [
         }
     },
     {
-        cardId: 'CA3',
+        cardId: '6a6e794c-a5ee-47ea-9d0e-4bbd1b747b51',
         task: 'Translate',
         sideA: {
             text: 'eramaja, eramaja, eramaja'
@@ -71,7 +77,7 @@ const cards: Card[] = [
         }
     },
     {
-        cardId: 'CA4',
+        cardId: '9807b33a-b495-4393-8030-4f5f8b49510c',
         task: 'Translate',
         sideA: {
             text: 'puumaja, puumaja, puumaja'
@@ -81,7 +87,7 @@ const cards: Card[] = [
         }
     },
     {
-        cardId: 'CA5',
+        cardId: '3d1622f0-5cb6-4943-ab25-8294fe58e611',
         task: 'Translate',
         sideA: {
             text: 'kivimaja, kivimaja, kivimaja'

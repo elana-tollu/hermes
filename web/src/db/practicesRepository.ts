@@ -4,38 +4,58 @@ import { CardOld } from "@/lib/cardOld"
 import { NotFoundError } from "./errors"
 import { Practice } from "@/lib/practice/practice"
 
+export async function createPractice(practice: Practice): Promise<Practice> {
+    const [insertedPractice] = await sql`
+        insert into practices (
+            practices_id,
+            practices_current_card_id,
+            practices_card_ids
+        )
+        values (
+            ${practice.practiceId},
+            ${practice.currentCardId},
+            ${practice.cardIds}
+        )
+        returning *
+    `
 
-
+    return mapToPractice(insertedPractice);
+}
 
 export async function getPracticeById(practiceId: string): Promise<Practice> {
     const result = await sql`
         select * 
-        from cards 
-        where cards_id = ${practiceId}
+        from practices 
+        where practices_id = ${practiceId}
     `
     if (result.length === 0) {
-        throw new NotFoundError('Card', practiceId); 
+        throw new NotFoundError('Practice', practiceId); 
     }
     
-    return mapToCard(result[0]);
+    return mapToPractice(result[0]);
 }
 
+export async function updateCurrentCardId(practiceId: string, currentCardId: string): Promise<Practice> {
+    const result = await sql`
+        update practices 
+        set practices_current_card_id = ${currentCardId}
+        where practices_id = ${practiceId}
+        returning *
+    `
+    if (result.length === 0) {
+        throw new NotFoundError('Practice', practiceId); 
+    }
+    
+    return mapToPractice(result[0]);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function mapToPractice(row: Row): Practice {
+    return {
+        practiceId: row['practices_id'],
+        currentCardId: row['practices_current_card_id'],
+        cardIds: row['practices_card_ids']
+    }
+}
 
 
 
@@ -47,8 +67,6 @@ interface CardAndCaseId {
 export interface NewPractice {
     cards: CardAndCaseId[]
 }
-
-
 
 export async function listAllCards() {
     const result = await sql`
