@@ -3,6 +3,8 @@ import { NewPractice } from "./newPractice";
 import { PracticeOld } from "./practiceOld";
 import { Practice } from "./practice";
 import { createPractice, getPracticeById, updateCurrentCardId } from "@/db/practicesRepository";
+import { Grade } from "../grade";
+import { createGrade } from "@/db/gradesRepository";
 
 export async function generatePracticeOld(newPractice: NewPractice): Promise<PracticeOld> {
     const cardIds = cards.map(card => card.cardId);
@@ -27,6 +29,16 @@ export async function practiceById(practiceId: string): Promise<Practice> {
     const practice = await getPracticeById(practiceId);
 
     return practice
+}
+
+export async function gradePractice(practiceId: string, grade: Grade): Promise<void> {
+    const practice = await getPracticeById(practiceId);
+    const newGrade = {
+        practiceId,
+        cardId: practice.currentCardId,
+        grade
+    }
+    await createGrade(newGrade)
 }
 
 export async function advancePractice(practiceId: string): Promise<void> {

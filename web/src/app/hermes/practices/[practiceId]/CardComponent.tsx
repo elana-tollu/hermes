@@ -3,7 +3,7 @@
 import { useCardPresenter } from "./useCardPresenter"
 
 export const CardComponent: React.FC = () => {
-    const { viewModel, reveal, next } = useCardPresenter();
+    const { viewModel, reveal, next, miss, doubt, hit } = useCardPresenter();
 
     if (!viewModel.card) {
             return (
@@ -26,6 +26,14 @@ export const CardComponent: React.FC = () => {
 
                 <button className='w-20 rounded-md border-2 border-gray-300 p-3 text-gray-500' onClick={next}>Next</button>
             </div>
+
+            <div className='flex flex-row justify-between'>
+                <button className='w-20 rounded-md border-2 border-gray-300 p-3 text-gray-500' onClick={miss} disabled={viewModel.showSideB}>Miss</button>
+                <button className='w-20 rounded-md border-2 border-gray-300 p-3 text-gray-500' onClick={doubt} disabled={viewModel.showSideB}>Doubt</button>
+                <button className='w-20 rounded-md border-2 border-gray-300 p-3 text-gray-500' onClick={hit}>Hit</button>
+            </div>
+
+
         </div>
     );
 }
