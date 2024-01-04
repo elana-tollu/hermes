@@ -6,10 +6,10 @@ export const CardComponent: React.FC = () => {
     const { viewModel, reveal, next, miss, doubt, hit } = useCardPresenter();
 
     if (!viewModel.card) {
-            return (
-                <div>Card is loading</div>
-            )
-        }
+        return (
+            <div>Card is loading</div>
+        )
+    }
 
     return (
         <div className='flex flex-col w-80 rounded-3xl border-2 border-gray-300 p-5 gap-5 text-center'>
@@ -22,8 +22,9 @@ export const CardComponent: React.FC = () => {
             )}
 
             <div className='flex flex-row justify-between'>
-                <button className='w-20 rounded-md border-2 border-gray-300 p-3 text-gray-500' onClick={reveal} disabled={viewModel.showSideB}>Reveal</button>
-
+                {!viewModel.showSideB && (
+                    <button className='w-20 rounded-md border-2 border-gray-300 p-3 text-gray-500' onClick={reveal} disabled={viewModel.showSideB}>Reveal</button>
+                )}
                 <button className='w-20 rounded-md border-2 border-gray-300 p-3 text-gray-500' onClick={next}>Next</button>
             </div>
 
